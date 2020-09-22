@@ -9,6 +9,9 @@ export class BasicComponent {
   public opacity = 1.0;
   public width = 5;
 
+  _x_cordinate = 114.157153
+  _y_cordinate = 30.489362
+
   increaseZoom() {
     this.zoom  = Math.min(this.zoom + 1, 18);
     console.log('zoom: ', this.zoom);
@@ -27,5 +30,8 @@ export class BasicComponent {
   decreaseOpacity() {
     this.opacity  = Math.max(this.opacity - 0.1, 0);
     console.log('opacity: ', this.opacity);
+  }
+  onDrawEnd(){
+    console.log('onDrawEnd');
   }
 }

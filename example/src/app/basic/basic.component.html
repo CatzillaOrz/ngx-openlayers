@@ -1,40 +1,87 @@
 <aol-map [width]="'100%'" [height]="'100%'">
-  <aol-view [zoom]="zoom">
-    <aol-coordinate [x]="114.157153" [y]="30.489362" [srid]="'EPSG:4326'"></aol-coordinate>
-  </aol-view>
-  <aol-layer-tile [opacity]="opacity">
-    <aol-source-osm></aol-source-osm>
-  </aol-layer-tile>
-  <aol-layer-vector [opacity]="opacity">
-    <aol-source-vector>
-      <aol-feature>
-        <aol-geometry-point>
-          <aol-coordinate [x]="114.157153" [y]="30.489362" [srid]="'EPSG:4326'"></aol-coordinate>
-        </aol-geometry-point>
-        <aol-style>
-          <aol-style-circle [radius]="100">
-            <aol-style-stroke [color]="'rgba(55,255,255,1)'" [width]="width"></aol-style-stroke>
-            <aol-style-fill [color]="'rgba(55,255,255,.1)'"></aol-style-fill>
-          </aol-style-circle>
-        </aol-style>
-      </aol-feature>
-      <aol-feature>
-        <aol-geometry-point>
-          <aol-coordinate [x]="5.1" [y]="45.1" [srid]="'EPSG:4326'"></aol-coordinate>
-        </aol-geometry-point>
-        <aol-style>
-          <aol-style-icon
-            [src]="'assets/marker.png'"
-            [anchor]="[0.5, 1]"
-            [anchorXUnits]="'fraction'" [anchorYUnits]="'fraction'"
-            [scale]="0.1"
-            [anchorOrigin]="'top-left'">
-          </aol-style-icon>
-        </aol-style>
-      </aol-feature>
-    </aol-source-vector>
-  </aol-layer-vector>
+    <aol-view [zoom]="zoom">
+        <!-- <aol-coordinate [x]="5" [y]="45" [srid]="'EPSG:4326'"></aol-coordinate> -->
+        <aol-coordinate [x]="114.157153" [y]="30.489362" [srid]="'EPSG:4326'"></aol-coordinate>
+    </aol-view>
+    <aol-layer-tile [opacity]="opacity">
+        <aol-source-osm [url]="'http://wprd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=7&x={x}&y={y}&z={z}'"></aol-source-osm>
+    </aol-layer-tile>
+    <aol-layer-vector [opacity]="opacity">
+        <aol-source-vector>
+            <aol-feature>
+                <aol-geometry-point>
+                    <aol-coordinate [x]="_x_cordinate" [y]="_y_cordinate" [srid]="'EPSG:4326'"></aol-coordinate>
+                </aol-geometry-point>
+                <aol-style>
+                    <aol-style-circle [radius]="100">
+                        <aol-style-stroke [color]="'rgba(55,255,255,1)'" [width]="width"></aol-style-stroke>
+                        <aol-style-fill [color]="'rgba(55,255,255,.1)'"></aol-style-fill>
+                    </aol-style-circle>
+                </aol-style>
+            </aol-feature>
+            <aol-feature>
+                <aol-geometry-point>
+                    <aol-coordinate [x]="_x_cordinate" [y]="_y_cordinate" [srid]="'EPSG:4326'"></aol-coordinate>
+                </aol-geometry-point>
+                <aol-style>
+                    <aol-style-icon [src]="'assets/marker.png'" [anchor]="[0.5, 0.5]" [anchorXUnits]="'top-left'" [anchorYUnits]="'fraction'" [scale]="0.1" [anchorOrigin]="'top-left'"> </aol-style-icon>
+                </aol-style>
+            </aol-feature>
+        </aol-source-vector>
+    </aol-layer-vector>
+    <aol-layer-vector [opacity]="opacity">
+        <aol-source-vector>
+            <aol-feature>
+                <aol-geometry-linestring>
+                    <aol-collection-coordinates
+                        [coordinates]="[
+                            [_x_cordinate, _y_cordinate],
+                            [5.11, 30.03]
+                        ]"
+                        [srid]="'EPSG:4326'"
+                    >
+                    </aol-collection-coordinates>
+                </aol-geometry-linestring>
+                <aol-style>
+                    <aol-style-stroke [color]="'blue'"></aol-style-stroke>
+                </aol-style>
+            </aol-feature>
+            <aol-feature>
+                <aol-geometry-polygon>
+                    <aol-collection-coordinates
+                        [coordinates]="[
+                            [114.157153, 30.489362],
+                            [114.157153, 30.419362],
+                            [114.997153, 30.499362]
+                        ]"
+                        [srid]="'EPSG:4326'"
+                    >
+                    </aol-collection-coordinates>
+                </aol-geometry-polygon>
+                <aol-style>
+                    <aol-style-stroke [color]="'red'"></aol-style-stroke>
+                    <aol-style-fill [color]="[255, 0, 0, 0.1]"></aol-style-fill>
+                </aol-style>
+                <aol-overlay>
+                    <aol-coordinate [x]="_x_cordinate" [y]="_y_cordinate" [srid]="'EPSG:4326'"> </aol-coordinate>
+                    <aol-content>
+                        <div class="my-overlay-class">
+                            <h1>This is an overlay</h1>
+                        </div>
+                    </aol-content>
+                    <aol-control>
+                        <aol-content>
+                            <div id="controlnameforcssstyling" class="ol-unselectable ol-control">
+                                <span (click)="doSomething()">'someContent'</span>
+                            </div>
+                        </aol-content>
+                    </aol-control>
+                </aol-overlay>
+            </aol-feature>
+        </aol-source-vector>
+    </aol-layer-vector>
+    <aol-interaction-default></aol-interaction-default>
 </aol-map>
 
-<span>opacity:</span><button (click)="increaseOpacity()">+</button><button (click)="decreaseOpacity()">-</button><br>
-<span>zoom:</span><button (click)="increaseZoom()">+</button><button (click)="decreaseZoom()">-</button><br>
+<span>opacity:</span><button (click)="increaseOpacity()">+</button><button (click)="decreaseOpacity()">-</button><br />
+<span>zoom:</span><button (click)="increaseZoom()">+</button><button (click)="decreaseZoom()">-</button><br />

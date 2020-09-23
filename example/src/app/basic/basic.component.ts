@@ -11,7 +11,7 @@ export class BasicComponent {
   public zoom = 15;
   public opacity = 1.0;
   public width = 5;
-  selectLayer = 'Circle'
+  selectLayer = 'Point'
   selectEdit = false
 
   endCircle(feat: Feature) {

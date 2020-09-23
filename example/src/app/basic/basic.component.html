@@ -28,8 +28,6 @@
                 </aol-style>
             </aol-feature>
         </aol-source-vector>
-        <aol-interaction-draw *ngIf="selectLayer === 'Circle' && selectEdit" [source]="sourceVectorPoint.instance" [type]="selectLayer" #DrawCircle (onDrawEnd)="endCircle($event.feature)"></aol-interaction-draw>
-        <aol-interaction-draw *ngIf="selectLayer !== 'Circle' && selectEdit" [source]="sourceVectorPoint.instance" [type]="selectLayer" #DrawLine (onDrawEnd)="endCircle($event.feature)"></aol-interaction-draw>
     </aol-layer-vector>
     <aol-layer-vector [opacity]="opacity">
         <aol-source-vector>
@@ -37,8 +35,8 @@
                 <aol-geometry-linestring>
                     <aol-collection-coordinates
                         [coordinates]="[
-                        [114.15031018188881, 30.485499786656618],
-                        [114.14492732367205, 30.485593999248266]
+                            [114.15031018188881, 30.485499786656618],
+                            [114.14492732367205, 30.485593999248266]
                         ]"
                         [srid]="'EPSG:4326'"
                     >
@@ -82,6 +80,9 @@
             </aol-feature>
         </aol-source-vector>
     </aol-layer-vector>
+    <aol-interaction-default></aol-interaction-default>
+    <aol-interaction-draw *ngIf="selectLayer === 'Circle' && selectEdit" [source]="sourceVectorPoint.instance" [type]="selectLayer" #DrawCircle (onDrawEnd)="endCircle($event.feature)"></aol-interaction-draw>
+    <aol-interaction-draw *ngIf="selectLayer !== 'Circle' && selectEdit" [source]="sourceVectorPoint.instance" [type]="selectLayer" #DrawLine (onDrawEnd)="endCircle($event.feature)"></aol-interaction-draw>
 </aol-map>
 
 <form>

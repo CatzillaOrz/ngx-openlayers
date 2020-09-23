@@ -1,5 +1,5 @@
 <aol-map [width]="'100%'" [height]="'100%'">
-    <aol-view [zoom]="zoom">
+    <aol-view [zoom]="zoom" [projection]="'EPSG:4326'">
         <!-- <aol-coordinate [x]="5" [y]="45" [srid]="'EPSG:4326'"></aol-coordinate> -->
         <aol-coordinate [x]="114.157153" [y]="30.489362" [srid]="'EPSG:4326'"></aol-coordinate>
     </aol-view>
@@ -7,7 +7,7 @@
         <aol-source-osm [url]="'http://wprd0{1-4}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&style=7&x={x}&y={y}&z={z}'"></aol-source-osm>
     </aol-layer-tile>
     <aol-layer-vector [opacity]="opacity">
-        <aol-source-vector>
+        <aol-source-vector #sourceVectorPoint>
             <aol-feature>
                 <aol-geometry-point>
                     <aol-coordinate [x]="_x_cordinate" [y]="_y_cordinate" [srid]="'EPSG:4326'"></aol-coordinate>
@@ -28,6 +28,8 @@
                 </aol-style>
             </aol-feature>
         </aol-source-vector>
+        <aol-interaction-draw *ngIf="selectLayer === 'Circle' && selectEdit" [source]="sourceVectorPoint.instance" [type]="selectLayer" #DrawCircle (onDrawEnd)="endCircle($event.feature)"></aol-interaction-draw>
+        <aol-interaction-draw *ngIf="selectLayer !== 'Circle' && selectEdit" [source]="sourceVectorPoint.instance" [type]="selectLayer" #DrawLine (onDrawEnd)="endCircle($event.feature)"></aol-interaction-draw>
     </aol-layer-vector>
     <aol-layer-vector [opacity]="opacity">
         <aol-source-vector>
@@ -35,8 +37,8 @@
                 <aol-geometry-linestring>
                     <aol-collection-coordinates
                         [coordinates]="[
-                            [_x_cordinate, _y_cordinate],
-                            [5.11, 30.03]
+                        [114.15031018188881, 30.485499786656618],
+                        [114.14492732367205, 30.485593999248266]
                         ]"
                         [srid]="'EPSG:4326'"
                     >
@@ -80,8 +82,16 @@
             </aol-feature>
         </aol-source-vector>
     </aol-layer-vector>
-    <aol-interaction-default></aol-interaction-default>
 </aol-map>
+
+<form>
+    <p>
+        <input type="checkbox" name="cbox1" id="cbox1" value="true" [(ngModel)]="selectEdit" />
+        <label for="cbox1">This edit</label>
+    </p>
+    <input type="radio" name="Circle" value="Circle" [(ngModel)]="selectLayer" />Circle<br />
+    <input type="radio" name="Circle" value="LineString" [(ngModel)]="selectLayer" />Box<br />
+</form>
 
 <span>opacity:</span><button (click)="increaseOpacity()">+</button><button (click)="decreaseOpacity()">-</button><br />
 <span>zoom:</span><button (click)="increaseZoom()">+</button><button (click)="decreaseZoom()">-</button><br />

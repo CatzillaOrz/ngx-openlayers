@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Feature, geom } from 'openlayers';
-import {toStringXY} from 'ol/coordinate';
 
 
 
@@ -21,8 +20,8 @@ export class BasicComponent {
 
   }
 
-  _x_cordinate = 114.157153
-  _y_cordinate = 30.489362
+  _x_cordinate = 114.1617943950622
+  _y_cordinate = 30.496726507764578
 
   increaseZoom() {
     this.zoom = Math.min(this.zoom + 1, 18);
